@@ -1,0 +1,25 @@
+{
+  "name": "zen-webpack-practise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easonzen/zen-webpack-practise.git"
+  },
+  "author": "easonzen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/easonzen/zen-webpack-practise/issues"
+  },
+  "homepage": "https://github.com/easonzen/zen-webpack-practise#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
+  }
+}
