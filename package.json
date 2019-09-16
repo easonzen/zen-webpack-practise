@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -25,11 +27,15 @@
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugins": "^3.0.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
     "react": "^16.9.0",

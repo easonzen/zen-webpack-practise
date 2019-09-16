@@ -1,20 +1,24 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
-    index: "./src/index.js",
-    login: "./src/login.js"
+    index: "./src/index.js"
   },
   output: {
     path: path.join(__dirname, "dist"),
     filename: "[name].js"
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".json"]
+  },
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /.(js|jsx)$/,
         use: "babel-loader"
       },
       {
@@ -40,5 +44,22 @@ module.exports = {
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin()]
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "public/index.html"),
+      filename: "index.html",
+      hash: false,
+      inject: true,
+      minify: false
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    hot: true,
+    open: true,
+    port: 3000
+  }
 };
