@@ -11,10 +11,13 @@ module.exports = {
     path: path.join(__dirname, "dist"),
     filename: "[name].js"
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".json"]
+  },
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /.(js|jsx)$/,
         use: "babel-loader"
       },
       {

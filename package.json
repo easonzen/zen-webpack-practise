@@ -31,6 +31,7 @@
     "html-webpack-plugins": "^3.0.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "react-hot-loader": "^4.12.13",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",
