@@ -1,6 +1,9 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin"); // 压缩js
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
 
 module.exports = {
   mode: "production",
@@ -9,7 +12,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "[name].js"
+    filename: "[name]_[chunkhash:8].js"
   },
   resolve: {
     extensions: [".js", ".jsx", ".json"]
@@ -22,11 +25,11 @@ module.exports = {
       },
       {
         test: /.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /.less$/,
-        use: ["style-loader", "css-loader", "less-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
       },
       {
         test: /.(png|jpg|jpeg|gif)$/,
@@ -34,7 +37,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name].[ext]",
+              name: "[name]_[hash:8].[ext]",
               outputPath: "images", // 负责输出目录, 即打包后的写在磁盘的位置
               publicPath: path.join(__dirname, "/dist/images") // 是对页面引入资源的补充,比如img标签引入或者css引入等
             }
@@ -42,6 +45,9 @@ module.exports = {
         ]
       }
     ]
+  },
+  optimization: {
+    minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin()]
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -51,6 +57,9 @@ module.exports = {
       hash: false,
       inject: true,
       minify: false
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name]_[contenthash:8].css"
     })
   ]
 };
