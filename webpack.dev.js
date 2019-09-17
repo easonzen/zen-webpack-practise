@@ -19,7 +19,15 @@ module.exports = {
     rules: [
       {
         test: /.(js|jsx)$/,
-        use: "babel-loader"
+        use: [
+          {
+            loader: "babel-loader",
+            // FIX: The code generator has deoptimised the styling of ........ 100KB
+            query: {
+              compact: true
+            }
+          }
+        ]
       },
       {
         test: /.css$/,
@@ -61,5 +69,6 @@ module.exports = {
     hot: true,
     open: true,
     port: 3000
-  }
+  },
+  devtool: "source-map"
 };
