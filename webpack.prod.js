@@ -54,9 +54,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public/index.html"),
       filename: "index.html",
-      hash: false,
       inject: true,
-      minify: false
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        preserveLineBreaks: false,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: true
+      }
     }),
     new MiniCssExtractPlugin({
       filename: "[name]_[contenthash:8].css"
