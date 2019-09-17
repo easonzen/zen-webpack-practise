@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin"); // 压缩js
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
+// const HtmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
 
 module.exports = {
   mode: "production",
@@ -64,7 +65,19 @@ module.exports = {
     ]
   },
   optimization: {
-    minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin()]
+    minimizer: [
+      new TerserJSPlugin({ extractComments: false }),
+      new OptimizeCSSAssetsPlugin()
+    ],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /(react|react-dom)/,
+          name: "vendors",
+          chunks: "all"
+        }
+      }
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -84,5 +97,26 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name]_[contenthash:8].css"
     })
+    // new HtmlWebpackExternalsPlugin({
+    //   externals: [
+    //     {
+    //       module: "react",
+    //       entry: {
+    //         path: "https://unpkg.com/react@16/umd/react.production.min.js",
+    //         type: "js"
+    //       },
+    //       global: "React"
+    //     },
+    //     {
+    //       module: "react-dom",
+    //       entry: {
+    //         path:
+    //           "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js",
+    //         type: "js"
+    //       },
+    //       global: "ReactDom"
+    //     }
+    //   ]
+    // })
   ]
 };
