@@ -29,7 +29,17 @@ module.exports = {
       },
       {
         test: /.less$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "less-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: [require("autoprefixer")]
+            }
+          }
+        ]
       },
       {
         test: /.(png|jpg|jpeg|gif)$/,
