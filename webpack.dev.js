@@ -2,6 +2,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -62,13 +63,15 @@ module.exports = {
       minify: false
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new FriendlyErrorsWebpackPlugin()
   ],
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     hot: true,
     open: true,
-    port: 3000
+    port: 3000,
+    stats: "errors-only"
   },
   devtool: "source-map"
 };

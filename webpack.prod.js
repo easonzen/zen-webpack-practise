@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin"); // 压缩js
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
 // const HtmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -96,7 +97,8 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name]_[contenthash:8].css"
-    })
+    }),
+    new FriendlyErrorsWebpackPlugin()
     // new HtmlWebpackExternalsPlugin({
     //   externals: [
     //     {
@@ -117,6 +119,7 @@ module.exports = {
     //       global: "ReactDom"
     //     }
     //   ]
-    // })
-  ]
+    // }),
+  ],
+  stats: "errors-only"
 };
